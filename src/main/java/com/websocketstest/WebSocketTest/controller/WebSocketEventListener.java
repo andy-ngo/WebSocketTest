@@ -22,7 +22,7 @@ public class WebSocketEventListener
     @EventListener
     public void handlesWebSocketConnectListener(final SessionConnectedEvent event)
     {
-        LOGGER.info("Bing bong, we have a new cheeky little connection!");
+        LOGGER.info("We have a new connection!");
     }
 
     @EventListener
