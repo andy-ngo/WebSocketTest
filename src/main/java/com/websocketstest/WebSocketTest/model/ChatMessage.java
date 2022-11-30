@@ -6,23 +6,55 @@ import lombok.Getter;
 @Builder
 public class ChatMessage
 {
-    @Getter
-    private MessageType type;
+	private MessageType type;
+    private String content;
+    private String sender;
+    private String time;
+    
+    public ChatMessage(MessageType type, String content, String sender, String time) {
+    	this.type = type;
+    	this.content = content;
+    	this.sender = sender;
+    	this.time = time;
+    }
+    
     public MessageType getType()
     {
         return this.type;
     }
+    
+    public void setType(MessageType type)
+    {
+        this.type = type;
+    }
 
-    @Getter
-    private String content;
+    public String getContent()
+    {
+    	return this.content;
+    }
+    
+    public void setContent(String content)
+    {
+        this.content = content;
+    }
 
-    @Getter
-    private String sender;
     public String getSender()
     {
         return this.sender;
     }
+    
+    public void setSender(String sender)
+    {
+        this.sender = sender;
+    }
 
-    @Getter
-    private String time;
+    public String getTime()
+    {
+    	return this.time;
+    }
+    
+    public void setTime(String time)
+    {
+        this.time = time;
+    }
 }
