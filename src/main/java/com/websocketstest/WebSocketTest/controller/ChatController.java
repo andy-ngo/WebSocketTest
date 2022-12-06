@@ -7,6 +7,9 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
+import java.io.*;
+import java.util.Scanner;
+
 @Controller
 public class ChatController
 {
@@ -14,6 +17,22 @@ public class ChatController
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload final ChatMessage chatMessage)
     {
+        String message = chatMessage.getContent();
+        String data = null;
+        if (message.equals("test"))
+        {
+            try{
+                File resultFile = new File("results.txt");
+                Scanner reader = new Scanner(resultFile);
+                data = reader.nextLine();
+                chatMessage.setContent(data);
+            } catch(FileNotFoundException e) {
+                data = "No file found";
+                e.printStackTrace();
+                chatMessage.setContent(data);
+            }
+            return chatMessage;
+        }
         return chatMessage;
     }
 
