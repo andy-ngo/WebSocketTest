@@ -1,7 +1,6 @@
 package com.websocketstest.WebSocketTest.controller;
 
-import com.websocketstest.WebSocketTest.model.ChatMessage;
-import com.websocketstest.WebSocketTest.model.MessageType;
+import com.websocketstest.WebSocketTest.model.BasicMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +27,10 @@ public class WebSocketEventListener
     @EventListener
     public void handleWebSocketDisconnectListener(final SessionConnectedEvent event)
     {
-        final StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+        BasicMessage message = BasicMessage.builder().build();
 
-        final String username = (String) headerAccessor.getSessionAttributes().get("/username");
-
-        final ChatMessage chatMessage = ChatMessage.builder()
-                .type(MessageType.DISCONNECT)
-                .sender(username)
-                .build();
-
-        sendingOperations.convertAndSend("/topic/public",chatMessage);
+        // TODO: for some reason, this fires only when a connection is established. The message is not received client
+        // TODO: ide through this channel. Possibly because the client is not listening by that point in the init process
+        sendingOperations.convertAndSend("/client/connection.closed", message);
     }
 }
